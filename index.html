@@ -554,13 +554,13 @@
           <div class="kicker"><span class="dot" aria-hidden="true"></span> Renouvellement simple & rapide</div>
           <h1>Renouvelez votre abonnement IPTV en 1 minute.</h1>
           <p class="lead">
-            Renseignez votre <strong>Username IPTV</strong>, effectuez le paiement <strong>80€</strong> via votre panier, puis envoyez la demande.
+            Renseignez votre <strong>Username IPTV</strong>, effectuez le paiement <strong>82€</strong> via votre panier, puis envoyez la demande.
             Nous recevons automatiquement votre formulaire par email et pouvons traiter le renouvellement.
           </p>
 
           <div class="heroActions">
             <a class="btn btn-primary" href="#renouvellement">Ouvrir le formulaire</a>
-            <a class="btn btn-pay" href="#paiement" id="goPay">Aller au paiement (80€)</a>
+            <a class="btn btn-pay" href="#paiement" id="goPay">Aller au paiement (82€)</a>
           </div>
           <p class="mini" style="margin-top:12px;">
             Astuce : ajoutez votre numéro de commande / référence de paiement pour accélérer le traitement.
@@ -571,7 +571,7 @@
           <div class="stepsHeader">
             <h2>Étapes</h2>
             <div class="pricePill" id="paiement">
-              Renouvellement: <strong>80€</strong>
+              Renouvellement: <strong>82€</strong>
             </div>
           </div>
           <ol class="stepsList">
@@ -584,7 +584,7 @@
               </div>
               <div>
                 <b>1) Paiement</b>
-                <span>Cliquez sur le bouton “Payer 80€” (connecté à votre panier).</span>
+                <span>Cliquez sur le bouton “Payer 82€” (connecté à votre panier).</span>
               </div>
             </li>
             <li class="step">
@@ -608,7 +608,7 @@
               </div>
               <div>
                 <b>3) Envoyer la demande</b>
-                <span>Le formulaire est envoyé via Formspree et nous arrive par email.</span>
+                <span>Le formulaire est envoyé à Teleprime4K et nous arrive par email.</span>
               </div>
             </li>
           </ol>
@@ -621,16 +621,17 @@
         <div class="panel reveal">
           <div class="panelTop">
             <div>
-              <h2>Formulaire de renouvellement (80€)</h2>
+              <h2>Formulaire de renouvellement (82€)</h2>
               <p>
-                Ce formulaire envoie votre demande à <strong>Teleprime4K@gmail.com</strong> via Formspree.
+                Ce formulaire envoie votre demande à <strong>Teleprime4K</strong>
                 Après paiement, remplissez/validez ce formulaire pour confirmer le renouvellement.
               </p>
             </div>
             <div class="notice" id="aide">
-              <strong>Important :</strong> pour que l’envoi fonctionne, vous devez remplacer l’URL Formspree dans le code :
-              <span class="mono">https://formspree.io/f/XXXXYYYY</span> par votre endpoint.
-              <br/>Si vous avez un lien de paiement/panier, remplacez aussi l’URL du bouton “Payer 80€” ci-dessous.
+              <strong>Important :</strong> +2€ de frais s'ajoute, si paiements Par carte bancaire ! 
+               
+              <span class="mono">Utiliser le Mode paiement  Avec l'app Lydia  '' 80€  seulement ''</span>
+              <br/> Avec Apple Pay ou Google Pay vous “Payer 82€” !
             </div>
           </div>
 
@@ -639,11 +640,11 @@
             Remplacez action="https://formspree.io/f/XXXXYYYY" par votre vrai endpoint Formspree.
             Dans Formspree, configurez l’email de destination: Teleprime4K@gmail.com
           -->
-          <form id="renewForm" action="https://formspree.io/f/XXXXYYYY" method="POST" novalidate>
+          <form id="renewForm" action="https://formspree.io/f/xbdazkbd" method="POST" novalidate>
             <!-- Subject + routing helpers -->
-            <input type="hidden" name="_subject" value="Téléprime4K — Demande de renouvellement abonnement IPTV (80€)">
+            <input type="hidden" name="_subject" value="Téléprime4K — Demande de renouvellement abonnement IPTV (82€)">
             <input type="hidden" name="type_demande" value="Renouvellement abonnement IPTV">
-            <input type="hidden" name="tarif" value="80€">
+            <input type="hidden" name="tarif" value="82€">
             <input type="hidden" name="source" value="site_web">
 
             <div class="grid2">
@@ -694,18 +695,18 @@
               <label class="consent">
                 <input id="paidCheck" type="checkbox" required />
                 <span>
-                  Je confirme avoir effectué le paiement de <strong>80€</strong> via le panier et je souhaite renouveler mon abonnement.
+                  Je confirme avoir effectué le paiement de <strong>82€</strong> via le panier et je souhaite renouveler mon abonnement.
                 </span>
               </label>
 
               <div class="rightActions">
                 <!--
                   ✅ IMPORTANT:
-                  Remplacez href par l’URL exacte de votre panier/checkout qui facture 80€.
+                  Remplacez href par l’URL exacte de votre panier/checkout qui facture 82€.
                   Exemples: lien Stripe Checkout / WooCommerce cart / Shopify cart / etc.
                 -->
-                <a class="btn btn-pay" id="payBtn" href="https://VOTRE-LIEN-PANIER-OU-CHECKOUT-80EUR" target="_blank" rel="noopener">
-                  Payer 80€ (Panier)
+                <a class="btn btn-pay" id="payBtn" href="https://pay.lydia.me/l?t=dhouamirdina941o" target="_blank" rel="noopener">
+                  Payer 82€ (Panier)
                 </a>
 
                 <button class="btn btn-primary" type="submit" id="submitBtn">
@@ -822,7 +823,7 @@
       payBtn.addEventListener('click', (e)=>{
         // Prevent shipping a broken link; remove this block after setting a real URL
         e.preventDefault();
-        setStatus('err', "Le lien de paiement n’est pas encore configuré. Remplacez l’URL du bouton “Payer 80€” par votre lien panier/checkout.");
+        setStatus('err', "Le lien de paiement n’est pas encore configuré. Remplacez l’URL du bouton “Payer 82€” par votre lien panier/checkout.");
       });
     }
   </script>
