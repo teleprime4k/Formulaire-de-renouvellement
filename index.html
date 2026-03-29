@@ -531,6 +531,95 @@
       display:inline-block;
       margin-left: 6px;
     }
+
+
+/* Animation d'apparition douce pour la modale */
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- STYLE CORRIGÉ DE L'ALERTE --- */
+        #alertMessage {
+            position: fixed;
+            top: -150px; /* Caché au dessus au début */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: var(--alert-bg);
+            backdrop-filter: blur(10px);
+            color: var(--text-body);
+            padding: 20px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 179, 8, 0.3); /* Bordure jaune discrète */
+            font-family: sans-serif;
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* Classe pour afficher l'alerte */
+        #alertMessage.show {
+            top: 20px; 
+        }
+
+        .alert-icon {
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .alert-content {
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+
+        .alert-content strong {
+            color: var(--accent-color);
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+
+        /* Barre de progression */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent-color);
+            width: 100%;
+            transform-origin: left;
+            animation: shrink 60s linear forwards; /* 1 minutes avant disparition */
+        }
+
+        @keyframes shrink {
+            from { transform: scaleX(1); }
+            to { transform: scaleX(0); }
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 600px) {
+            #alertMessage { padding: 15px; }
+            .alert-icon { font-size: 1.8rem; }
+            .alert-content { font-size: 0.9rem; }
+        }
+    
   </style>
 </head>
 
@@ -857,5 +946,39 @@
                 s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
 </script>
 
+ <div id="alertMessage"> 
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-content">
+            <strong>Une question ?</strong>
+            Contactez nous sur le Chat bleu en bas à droite de l'écran, disponible 24/7. Possible de payer💳via le Chat aussi💰
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+
+    <script>
+       
+
+        // --- GESTION ALERTE ---
+        window.onload = () => {
+            const alert = document.getElementById('alertMessage');
+            // Affiche l'alerte après 1 seconde
+            setTimeout(() => {
+                alert.classList.add('show');
+            }, 1000);
+
+            // Cache l'alerte après 61 secondes
+            // (1s d'attente au début + 60s de barre de progression)
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 61000);
+        };
+
+      // Fermer l'alerte au clic
+        document.getElementById('alertMessage').onclick = function() {
+            this.classList.remove('show');
+        };
+      
+</script>
+  
 </body>
 </html>
