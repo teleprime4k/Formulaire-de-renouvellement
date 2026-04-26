@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8"><!-- Définition de l'encodage des caractères en UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Adaptation responsive pour les mobiles -->
-    <title>Téléprime4K — Renouvellement d’abonnement</title><!-- Titre de la page affiché dans l'onglet du navigateur -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Téléprime4K — Renouvellement d’abonnement</title>
     
-    <!-- Inclusion des scripts et polices externes -->
-    <script src="https://cdn.tailwindcss.com"></script><!-- Framework CSS Tailwind pour le style -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"><!-- Icônes Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"><!-- Police Google Fonts Inter -->
-
+    <!-- Scripts & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
      <!-- Favicons (corrigés pour GitHub Pages + dossier /assets/icons/) -->
    <link rel="icon" type="image/png" sizes="96x96" href="./assets/icons/favicon-96x96.png" />
@@ -20,212 +19,241 @@
    <link rel="manifest" href="./assets/icons/site.webmanifest" />
 
     <style>
-        /* Style global du corps de la page avec la police Inter et comportement de défilement fluide */
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-
-        /* Classe pour effet verre dépoli avec transparence et flou */
-        .glass { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-        }
-
-        /* Fond en dégradé radial sombre */
-        .gradient-bg { 
-            background: radial-gradient(circle at top right, #1e293b, #0f172a, #020617); 
-        }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-bg { background: radial-gradient(circle at top right, #1e293b, #0f172a, #020617); }
         
-        /* Styles pour l'alerte personnalisée */
+        /* Alerte personnalisée */
         #alertMessage {
-            position: fixed; /* Position fixe pour rester visible */
-            top: -150px; /* Hors écran au départ */
-            left: 50%; /* Centré horizontalement */
-            transform: translateX(-50%); /* Ajustement pour centrer parfaitement */
-            width: 90%; max-width: 500px; /* Largeur responsive */
-            z-index: 10000; /* Au-dessus de tous les autres éléments */
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Animation fluide */
+            position: fixed; top: -150px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 500px; z-index: 10000;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        #alertMessage.show { top: 20px; } /* Position visible quand la classe show est ajoutée */
+        #alertMessage.show { top: 20px; }
+        .progress-bar { height: 3px; background: #fbbf24; width: 100%; transform-origin: left; animation: shrink 60s linear forwards; }
+        @keyframes shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 
-        /* Barre de progression animée pour l'alerte */
-        .progress-bar { 
-            height: 3px; 
-            background: #fbbf24; /* Couleur jaune */
-            width: 100%; 
-            transform-origin: left; 
-            animation: shrink 60s linear forwards; /* Animation de réduction sur 60 secondes */
-        }
-
-        /* Animation clé pour la barre de progression */
-        @keyframes shrink { 
-            from { transform: scaleX(1); } 
-            to { transform: scaleX(0); } 
+        /* État désactivé du bouton */
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(1);
         }
     </style>
 </head>
-<body class="gradient-bg text-slate-200 min-h-screen"><!-- Corps avec fond dégradé, texte clair, hauteur minimale plein écran -->
+<body class="gradient-bg text-slate-200 min-h-screen">
 
-    <!-- Alerte affichée en haut de page -->
-    <div id="alertMessage" class="glass rounded-2xl overflow-hidden shadow-2xl cursor-pointer bg-slate-900/90">
+    <!-- Alerte Message Chat -->
+    <div id="alertMessage" class="glass rounded-2xl overflow-hidden shadow-2xl cursor-pointer bg-slate-900/90 border-amber-500/20">
         <div class="p-4 flex items-center gap-4">
-            <span class="text-2xl animate-bounce">⚠️</span><!-- Icône d'alerte animée -->
+            <span class="text-2xl animate-pulse">⚠️</span>
             <div class="text-sm">
-                <strong class="text-amber-400 block text-base">Une question ?</strong>
-                Contactez-nous sur le Chat bleu (24/7). Paiement possible via le Chat.
+                <strong class="text-amber-400 block text-base">Besoin d'aide ?</strong>
+                Contactez-nous sur le Chat (bulle bleue) 24h/24. Paiement CB possible en direct.
             </div>
         </div>
-        <div class="progress-bar"></div><!-- Barre de progression animée -->
+        <div class="progress-bar"></div>
     </div>
 
-    <!-- Barre de navigation sticky en haut -->
+    <!-- Navigation -->
     <nav class="sticky top-0 z-50 glass border-b border-white/5 py-4">
         <div class="max-w-5xl mx-auto px-6 flex justify-between items-center">
-            <div class="font-bold text-xl tracking-tight text-white">Téléprime<span class="text-amber-400">4K</span></div><!-- Logo / titre -->
+            <div class="font-bold text-xl tracking-tight text-white uppercase">Téléprime<span class="text-amber-400 font-black">4K</span></div>
             <div class="hidden md:flex gap-6 text-sm font-medium text-slate-400">
-                <a href="#renouvellement" class="hover:text-white transition-colors">Renouvellement</a><!-- Lien vers section renouvellement -->
-                <a href="#aide" class="hover:text-white transition-colors">Aide</a><!-- Lien vers section aide -->
+                <a href="#renouvellement" class="hover:text-white transition-colors">Formulaire</a>
+                <a href="#aide" class="hover:text-white transition-colors">Tarifs</a>
             </div>
-            <a href="#renouvellement" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-full text-xs font-bold transition-all transform hover:scale-105">
-                RENOUVELER
-            </a><!-- Bouton d'appel à l'action -->
+            <a href="https://teleprime4k.github.io/Lien-de-paiement-/" target="_blank" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-full text-[10px] font-black transition-all">
+                PAYER 82€
+            </a>
         </div>
     </nav>
 
-    <!-- Section Hero avec titre et boutons -->
+    <!-- Hero Section -->
     <header class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
-        <div class="inline-block px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-6">
-            Service Premium IPTV
+        <div class="inline-block px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-8">
+            Renouvellement IPTV Instantané
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Renouvelez votre accès <br> en moins de <span class="text-amber-400 text-6xl italic">1 min</span>.
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-[1.1] tracking-tight">
+            Prolongez votre plaisir <br> en <span class="text-amber-500 italic">quelques clics</span>.
         </h1>
-        <p class="text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-            Remplissez le formulaire après avoir effectué votre paiement de 82€. 
-            Traitement prioritaire pour toutes les demandes.
+        <p class="text-slate-400 max-w-2xl mx-auto mb-10 text-base md:text-lg leading-relaxed">
+            Étape 1 : Réglez vos <b class="text-white">82€</b> via le panier sécurisé. <br>
+            Étape 2 : Confirmez vos accès via le formulaire ci-dessous.
         </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="https://teleprime4k.github.io/Lien-de-paiement-/" target="_blank" class="bg-white text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-xl shadow-white/5">
-                Payer 82€ (Panier)
-            </a><!-- Lien vers la page de paiement -->
-            <a href="#renouvellement" class="glass px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all">
-                Formulaire de demande
-            </a><!-- Lien vers le formulaire -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+            <a href="https://teleprime4k.github.io/Lien-de-paiement-/" target="_blank" class="w-full sm:w-auto bg-white text-slate-950 px-10 py-4 rounded-2xl font-black hover:bg-amber-400 transition-all shadow-2xl shadow-white/10 hover:-translate-y-1">
+                <i class="fa-solid fa-cart-shopping mr-2"></i> ACCÉDER AU PANIER (82€)
+            </a>
+            <a href="#renouvellement" class="w-full sm:w-auto glass px-10 py-4 rounded-2xl font-bold hover:bg-white/5 transition-all flex items-center justify-center">
+                FORMULAIRE
+            </a>
         </div>
     </header>
 
-    <!-- Section formulaire de renouvellement -->
-    <section id="renouvellement" class="max-w-3xl mx-auto px-6 py-12">
-        <div class="glass rounded-3xl p-8 md:p-12 shadow-2xl">
-            <h2 class="text-2xl font-bold text-white mb-2">Votre Demande</h2>
-            <p class="text-slate-400 text-sm mb-8">Envoyé directement au support Téléprime4K.</p>
+    <!-- Section Formulaire -->
+    <section id="renouvellement" class="max-w-4xl mx-auto px-6 py-12">
+        <div class="glass rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                <i class="fa-solid fa-file-invoice text-8xl"></i>
+            </div>
+            
+            <h2 class="text-3xl font-black text-white mb-3">Validation de Demande</h2>
+            <p class="text-slate-400 text-sm mb-10 max-w-md">Une fois le formulaire envoyé, nos techniciens procèdent à l'activation de votre ligne sous 5 à 15 minutes.</p>
 
-            <form id="renewForm" action="https://formspree.io/f/xbdazkbd" method="POST" class="space-y-6">
-                <!-- Champs cachés pour sujet de l'email -->
-                <input type="hidden" name="_subject" value="Demande de renouvellement Téléprime4K">
+            <form id="renewForm" action="https://formspree.io/f/xbdazkbd" method="POST" class="space-y-8">
+                <!-- Config Formspree -->
+                <input type="hidden" name="_subject" value="URGENT : Demande de renouvellement Téléprime4K">
+                <input type="hidden" name="service" value="IPTV-PREMIUM-4K">
                 
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Username IPTV *</label>
-                        <input name="username_iptv" type="text" placeholder="ex: TP4K_Jean" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors" required>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-3">
+                        <label class="text-xs font-black uppercase tracking-widest text-amber-500/80">Identifiant IPTV *</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                            <input name="username_iptv" type="text" placeholder="TP4K_NomUtilisateur" class="w-full bg-white/5 border border-white/10 rounded-2xl px-12 py-4 focus:outline-none focus:border-amber-500 focus:bg-white/10 transition-all" required>
+                        </div>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Email *</label>
-                        <input name="email" type="email" placeholder="votre@email.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors" required>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-wider text-slate-500">N° Commande / Réf *</label>
-                        <input name="reference_paiement" type="text" placeholder="ex: CMD-10482" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors" required>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-wider text-slate-500">WhatsApp (Optionnel)</label>
-                        <input name="telephone_whatsapp" type="tel" placeholder="+33 6..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors">
+                    <div class="space-y-3">
+                        <label class="text-xs font-black uppercase tracking-widest text-amber-500/80">Votre E-mail *</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                            <input name="email" type="email" placeholder="votre@email.com" class="w-full bg-white/5 border border-white/10 rounded-2xl px-12 py-4 focus:outline-none focus:border-amber-500 focus:bg-white/10 transition-all" required>
+                        </div>
                     </div>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Notes ou Infos</label>
-                    <textarea name="message" rows="3" placeholder="Une précision ?" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors"></textarea>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-3">
+                        <label class="text-xs font-black uppercase tracking-widest text-amber-500/80">Réf. de Paiement *</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-hashtag absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                            <input name="reference_paiement" type="text" placeholder="ID Transaction ou N° Commande" class="w-full bg-white/5 border border-white/10 rounded-2xl px-12 py-4 focus:outline-none focus:border-amber-500 focus:bg-white/10 transition-all" required>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-xs font-black uppercase tracking-widest text-amber-500/80">WhatsApp (Optionnel)</label>
+                        <div class="relative">
+                            <i class="fa-brands fa-whatsapp absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                            <input name="telephone_whatsapp" type="tel" placeholder="+33 6..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-12 py-4 focus:outline-none focus:border-amber-500 focus:bg-white/10 transition-all">
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Boîte d'information importante -->
-                <div id="aide" class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 text-xs space-y-2">
-                    <p class="text-amber-400 font-bold uppercase">⚠️ Information importante :</p>
-                    <p><span class="text-red-400">+2€ de frais</span> par Carte Bancaire, Apple Pay ou Google Pay (Total 82€).</p>
-                    <p class="text-green-400">Paiement via l'app <span class="font-bold">Lydia : 80€</span> seulement.</p>
+                <!-- Box d'information tarifaire -->
+                <div id="aide" class="bg-amber-500/5 border border-amber-500/20 rounded-[1.5rem] p-6 text-sm">
+                    <p class="text-amber-500 font-black uppercase text-xs mb-3 flex items-center">
+                        <i class="fa-solid fa-circle-info mr-2"></i> Rappel des conditions
+                    </p>
+                    <ul class="space-y-2 text-slate-400">
+                        <li>• <span class="text-white font-bold">Total 82€</span> : Si paiement par CB, Apple/Google Pay.</li>
+                        <li>• <span class="text-green-500 font-bold">Total 80€</span> : Via l'application <span class="underline decoration-green-500">Lydia</span>.</li>
+                        <li>• Le délai d'activation commence dès la réception de ce formulaire.</li>
+                    </ul>
                 </div>
 
-                <!-- Case à cocher de confirmation -->
-                <label class="flex items-start gap-3 cursor-pointer group">
-                    <input type="checkbox" required class="mt-1 accent-amber-500">
-                    <span class="text-xs text-slate-400 group-hover:text-slate-300">
-                        Je confirme avoir payé 82€ et je demande le renouvellement immédiat de mon compte.
-                    </span>
-                </label>
+                <!-- CASE DE CONFIRMATION CRITIQUE -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
+                    <label class="flex items-start gap-4 cursor-pointer group">
+                        <input type="checkbox" id="paidCheck" class="mt-1.5 w-5 h-5 accent-amber-500 cursor-pointer">
+                        <span class="text-sm text-slate-400 group-hover:text-slate-200 transition-colors leading-relaxed">
+                            Je confirme officiellement avoir réglé la somme de <b class="text-amber-400">82€</b> (ou 80€ via Lydia). Je comprends que toute fausse déclaration entraînera le rejet de ma demande. *
+                        </span>
+                    </label>
+                </div>
 
-                <!-- Bouton d'envoi -->
-                <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-4 rounded-xl shadow-lg shadow-amber-500/20 transition-all transform active:scale-95">
+                <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-5 rounded-2xl shadow-2xl shadow-amber-500/10 transition-all transform active:scale-[0.98] uppercase tracking-tighter text-lg">
                     Envoyer ma demande
                 </button>
                 
-                <!-- Zone d'affichage du statut du formulaire -->
-                <div id="formStatus" class="hidden text-center text-sm p-4 rounded-xl"></div>
+                <div id="formStatus" class="hidden text-center text-sm font-bold p-5 rounded-2xl animate-fade-in"></div>
             </form>
         </div>
     </section>
 
-    <!-- Pied de page -->
-    <footer class="max-w-5xl mx-auto px-6 py-12 border-t border-white/5 text-center text-slate-500 text-xs">
-        <p>© <span id="year"></span> Téléprime4K. Support technique disponible 24/7.</p><!-- Année mise à jour par script -->
+    <!-- Footer -->
+    <footer class="max-w-5xl mx-auto px-6 py-20 border-t border-white/5 text-center">
+        <div class="mb-6 font-bold text-white uppercase tracking-widest">Téléprime<span class="text-amber-500">4K</span></div>
+        <p class="text-slate-500 text-[10px] uppercase tracking-widest">
+            © <span id="year"></span> — Service Client : <a href="mailto:Teleprime4K@gmail.com" class="text-slate-300 hover:text-amber-500">Teleprime4K@gmail.com</a>
+        </p>
     </footer>
 
-    <!-- Scripts JavaScript -->
+    <!-- Scripts de Logique -->
     <script>
-        // Met à jour dynamiquement l'année dans le footer
+        // Année Dynamique
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Gestion de l'affichage de l'alerte
+        // Gestion de l'alerte flottante
         window.onload = () => {
             const alert = document.getElementById('alertMessage');
-            setTimeout(() => alert.classList.add('show'), 1500); // Affiche l'alerte après 1.5s
-            setTimeout(() => alert.classList.remove('show'), 61500); // Cache l'alerte après 61.5s
-            alert.onclick = () => alert.classList.remove('show'); // Clic sur l'alerte la ferme immédiatement
+            setTimeout(() => alert.classList.add('show'), 1500);
+            setTimeout(() => alert.classList.remove('show'), 61500);
+            alert.onclick = () => alert.classList.remove('show');
         };
 
-        // Gestion de l'envoi du formulaire via Formspree
+        // --- SÉCURITÉ FORMULAIRE ---
         const form = document.getElementById('renewForm');
         const statusEl = document.getElementById('formStatus');
-        const btn = document.getElementById('submitBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const paidCheck = document.getElementById('paidCheck');
+
+        // On écoute le changement sur la checkbox pour activer/désactiver visuellement le bouton
+        paidCheck.addEventListener('change', () => {
+            if(paidCheck.checked) {
+                submitBtn.disabled = false;
+            } else {
+                // Optionnel : on peut le laisser activé mais bloquer au clic
+                // Ici on choisit de le désactiver pour une meilleure UX
+            }
+        });
 
         form.onsubmit = async (e) => {
-            e.preventDefault(); // Empêche le rechargement de la page
-            btn.disabled = true; // Désactive le bouton pour éviter les doubles clics
-            btn.textContent = "Envoi en cours..."; // Indique que l'envoi est en cours
-            
-            // Envoi des données du formulaire en POST vers Formspree
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
+            e.preventDefault();
 
-            statusEl.classList.remove('hidden'); // Affiche la zone de statut
-            if (response.ok) {
-                // En cas de succès, affiche un message vert et réinitialise le formulaire
-                statusEl.className = "text-green-400 bg-green-400/10 p-4 rounded-xl block";
-                statusEl.textContent = "Demande reçue ! Nous traitons votre renouvellement.";
-                form.reset();
-            } else {
-                // En cas d'erreur, affiche un message rouge
-                statusEl.className = "text-red-400 bg-red-400/10 p-4 rounded-xl block";
-                statusEl.textContent = "Erreur lors de l'envoi. Veuillez réessayer.";
+            // SÉCURITÉ : Vérification de la checkbox avant envoi
+            if (!paidCheck.checked) {
+                statusEl.classList.remove('hidden');
+                statusEl.className = "text-red-400 bg-red-400/10 p-5 rounded-2xl block border border-red-400/20";
+                statusEl.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Vous devez confirmer votre paiement pour envoyer le formulaire.";
+                return;
             }
-            btn.disabled = false; // Réactive le bouton
-            btn.textContent = "Envoyer ma demande"; // Restaure le texte du bouton
+
+            // Si ok, on lance l'envoi
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "<i class='fa-solid fa-spinner fa-spin mr-2'></i> Envoi sécurisé en cours...";
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                statusEl.classList.remove('hidden');
+                if (response.ok) {
+                    statusEl.className = "text-green-400 bg-green-400/10 p-5 rounded-2xl block border border-green-400/20";
+                    statusEl.innerHTML = "<i class='fa-solid fa-circle-check mr-2'></i> Demande bien reçue ! Activation en cours (5-15 min).";
+                    form.reset();
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                statusEl.className = "text-red-400 bg-red-400/10 p-5 rounded-2xl block border border-red-400/20";
+                statusEl.innerHTML = "<i class='fa-solid fa-circle-xmark mr-2'></i> Une erreur est survenue. Contactez le chat en bas à droite.";
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Envoyer ma demande";
+            }
         };
     </script>
+
+    <!-- Script Chat Crisp -->
+    <script type="text/javascript">
+        window.$crisp=[];window.CRISP_WEBSITE_ID="6d5abd7e-ed07-4bbf-a4eb-af5ef15c1598";
+        (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+    </script>
+
 </body>
 </html>
 
