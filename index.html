@@ -10,28 +10,41 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-     <!-- Favicons (corrigés pour GitHub Pages + dossier /assets/icons/) -->
+     <!-- Favicons -->
    <link rel="icon" type="image/png" sizes="96x96" href="./assets/icons/favicon-96x96.png" />
    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
    <link rel="shortcut icon" href="./assets/icons/favicon.ico" />
    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png" />
-   <meta name="apple-mobile-web-app-title" content="MyWebSite" />
-   <link rel="manifest" href="./assets/icons/site.webmanifest" />
+   <meta name="apple-mobile-web-app-title" content="Téléprime4K" />
 
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-bg { background: radial-gradient(circle at top right, #1e293b, #0f172a, #020617); }
         
-        /* Alerte personnalisée */
+        /* Alerte personnalisée corrigée pour 10s */
         #alertMessage {
             position: fixed; top: -150px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 500px; z-index: 10000;
             transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         #alertMessage.show { top: 20px; }
-        .progress-bar { height: 3px; background: #fbbf24; width: 100%; transform-origin: left; animation: shrink 10s linear forwards; }
-        @keyframes shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+        
+        /* Animation de la barre calée sur 10 secondes */
+        .progress-bar { 
+            height: 3px; 
+            background: #fbbf24; 
+            width: 100%; 
+            transform-origin: left; 
+        }
+        .show .progress-bar {
+            animation: shrink 10s linear forwards;
+        }
+
+        @keyframes shrink { 
+            from { transform: scaleX(1); } 
+            to { transform: scaleX(0); } 
+        }
 
         /* État désactivé du bouton */
         button:disabled {
@@ -43,7 +56,7 @@
 </head>
 <body class="gradient-bg text-slate-200 min-h-screen">
 
-    <!-- Alerte Message Chat -->
+    <!-- Alerte Message Chat (Corrigée à 10s) -->
     <div id="alertMessage" class="glass rounded-2xl overflow-hidden shadow-2xl cursor-pointer bg-slate-900/90 border-amber-500/20">
         <div class="p-4 flex items-center gap-4">
             <span class="text-2xl animate-pulse">⚠️</span>
@@ -102,7 +115,6 @@
             <p class="text-slate-400 text-sm mb-10 max-w-md">Une fois le formulaire envoyé, nos techniciens procèdent à l'activation de votre ligne sous 5 à 15 minutes.</p>
 
             <form id="renewForm" action="https://formspree.io/f/xbdazkbd" method="POST" class="space-y-8">
-                <!-- Config Formspree -->
                 <input type="hidden" name="_subject" value="URGENT : Demande de renouvellement Téléprime4K">
                 <input type="hidden" name="service" value="IPTV-PREMIUM-4K">
                 
@@ -148,11 +160,10 @@
                     <ul class="space-y-2 text-slate-400">
                         <li>• <span class="text-white font-bold">Total 82€</span> : Si paiement par CB, Apple/Google Pay.</li>
                         <li>• <span class="text-green-500 font-bold">Total 80€</span> : Via l'application <span class="underline decoration-green-500">Lydia</span>.</li>
-                        <li>• Le délai d'activation commence dès la réception de ce formulaire.</li>
                     </ul>
                 </div>
 
-                <!-- CASE DE CONFIRMATION CRITIQUE -->
+                <!-- CASE DE CONFIRMATION -->
                 <div class="p-4 rounded-2xl bg-white/5 border border-white/5">
                     <label class="flex items-start gap-4 cursor-pointer group">
                         <input type="checkbox" id="paidCheck" class="mt-1.5 w-5 h-5 accent-amber-500 cursor-pointer">
@@ -162,11 +173,11 @@
                     </label>
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-5 rounded-2xl shadow-2xl shadow-amber-500/10 transition-all transform active:scale-[0.98] uppercase tracking-tighter text-lg">
+                <button type="submit" id="submitBtn" disabled class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-5 rounded-2xl shadow-2xl shadow-amber-500/10 transition-all transform active:scale-[0.98] uppercase tracking-tighter text-lg">
                     Envoyer ma demande
                 </button>
                 
-                <div id="formStatus" class="hidden text-center text-sm font-bold p-5 rounded-2xl animate-fade-in"></div>
+                <div id="formStatus" class="hidden text-center text-sm font-bold p-5 rounded-2xl"></div>
             </form>
         </div>
     </section>
@@ -179,18 +190,27 @@
         </p>
     </footer>
 
-    <!-- Scripts de Logique -->
     <script>
         // Année Dynamique
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Gestion de l'alerte flottante
-        window.onload = () => {
+        // --- GESTION ALERTE (Correction 10 secondes) ---
+        window.addEventListener('load', () => {
             const alert = document.getElementById('alertMessage');
-            setTimeout(() => alert.classList.add('show'), 1500);
-            setTimeout(() => alert.classList.remove('show'), 61500);
+            
+            // Apparaît après 1.5s
+            setTimeout(() => {
+                alert.classList.add('show');
+                
+                // Disparaît exactement 10s après son apparition
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                }, 10000); 
+
+            }, 1500);
+
             alert.onclick = () => alert.classList.remove('show');
-        };
+        });
 
         // --- SÉCURITÉ FORMULAIRE ---
         const form = document.getElementById('renewForm');
@@ -198,30 +218,18 @@
         const submitBtn = document.getElementById('submitBtn');
         const paidCheck = document.getElementById('paidCheck');
 
-        // On écoute le changement sur la checkbox pour activer/désactiver visuellement le bouton
+        // Activation/Désactivation du bouton
         paidCheck.addEventListener('change', () => {
-            if(paidCheck.checked) {
-                submitBtn.disabled = false;
-            } else {
-                // Optionnel : on peut le laisser activé mais bloquer au clic
-                // Ici on choisit de le désactiver pour une meilleure UX
-            }
+            submitBtn.disabled = !paidCheck.checked;
         });
 
         form.onsubmit = async (e) => {
             e.preventDefault();
 
-            // SÉCURITÉ : Vérification de la checkbox avant envoi
-            if (!paidCheck.checked) {
-                statusEl.classList.remove('hidden');
-                statusEl.className = "text-red-400 bg-red-400/10 p-5 rounded-2xl block border border-red-400/20";
-                statusEl.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Vous devez confirmer votre paiement pour envoyer le formulaire.";
-                return;
-            }
+            if (!paidCheck.checked) return;
 
-            // Si ok, on lance l'envoi
             submitBtn.disabled = true;
-            submitBtn.innerHTML = "<i class='fa-solid fa-spinner fa-spin mr-2'></i> Envoi sécurisé en cours...";
+            submitBtn.innerHTML = "<i class='fa-solid fa-spinner fa-spin mr-2'></i> Envoi en cours...";
             
             try {
                 const response = await fetch(form.action, {
@@ -232,18 +240,20 @@
 
                 statusEl.classList.remove('hidden');
                 if (response.ok) {
-                    statusEl.className = "text-green-400 bg-green-400/10 p-5 rounded-2xl block border border-green-400/20";
-                    statusEl.innerHTML = "<i class='fa-solid fa-circle-check mr-2'></i> Demande bien reçue ! Activation en cours (5-15 min).";
+                    statusEl.className = "text-green-400 bg-green-400/10 p-5 rounded-2xl block border border-green-400/20 mt-4";
+                    statusEl.innerHTML = "<i class='fa-solid fa-circle-check mr-2'></i> Demande bien reçue ! Activation sous 5-15 min.";
                     form.reset();
+                    submitBtn.disabled = true;
                 } else {
                     throw new Error();
                 }
             } catch (err) {
-                statusEl.className = "text-red-400 bg-red-400/10 p-5 rounded-2xl block border border-red-400/20";
-                statusEl.innerHTML = "<i class='fa-solid fa-circle-xmark mr-2'></i> Une erreur est survenue. Contactez le chat en bas à droite.";
-            } finally {
+                statusEl.classList.remove('hidden');
+                statusEl.className = "text-red-400 bg-red-400/10 p-5 rounded-2xl block border border-red-400/20 mt-4";
+                statusEl.innerHTML = "<i class='fa-solid fa-circle-xmark mr-2'></i> Erreur. Utilisez le chat en bas à droite.";
                 submitBtn.disabled = false;
-                submitBtn.textContent = "Envoyer ma demande";
+            } finally {
+                submitBtn.innerHTML = "Envoyer ma demande";
             }
         };
     </script>
@@ -256,4 +266,3 @@
 
 </body>
 </html>
-
